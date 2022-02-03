@@ -3,7 +3,7 @@ from geopy.geocoders import Nominatim
 import requests
 from google.cloud import storage
 import json
-storage_client = storage.Client(project='mlops-jsj')
+storage_client = storage.Client(project='your-project-id')
 
 def create_bucket(dataset_name):
     """Creates a new bucket. https://cloud.google.com/storage/docs/ """
