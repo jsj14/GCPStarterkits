@@ -50,21 +50,21 @@ def weather(request):
     geolocator = Nominatim(user_agent="mlops-jsj")
     # params = request.get_json()
     for i in ["Orlando", "Chicago", "Texas"]:
-    location = geolocator.geocode(i)
-    # https://www.weather.gov/documentation/services-web-api
-    # Example query: https://api.weather.gov/points/39.7456,-97.0892
-    result1 = requests.get(f"https://api.weather.gov/points/{location.latitude},{location.longitude}")
-    # Example query: https://api.weather.gov/gridpoints/TOP/31,80
-    result2 = requests.get(f"{result1.json()['properties']['forecast']}")
-    data["response"] = result2.json()
-    data["success"] = True
-    bucket_name = 'weather_jsj_test2022'
-    # delete_bucket(bucket_name)
-    # create_bucket(bucket_name)
-    # jsonified_data = jsonify(data["response"])
-    local_data = json.dumps(data["response"])
-    file_name = 'data'+str(i)
-    upload_blob(bucket_name, local_data, file_name)
-    print('Data inside of',bucket_name,':')
-    # list_blobs(bucket_name)
+        location = geolocator.geocode(i)
+        # https://www.weather.gov/documentation/services-web-api
+        # Example query: https://api.weather.gov/points/39.7456,-97.0892
+        result1 = requests.get(f"https://api.weather.gov/points/{location.latitude},{location.longitude}")
+        # Example query: https://api.weather.gov/gridpoints/TOP/31,80
+        result2 = requests.get(f"{result1.json()['properties']['forecast']}")
+        data["response"] = result2.json()
+        data["success"] = True
+        bucket_name = 'weather_jsj_test2022'
+        # delete_bucket(bucket_name)
+        # create_bucket(bucket_name)
+        # jsonified_data = jsonify(data["response"])
+        local_data = json.dumps(data["response"])
+        file_name = 'data'+str(i)
+        upload_blob(bucket_name, local_data, file_name)
+        print('Data inside of',bucket_name,':')
+        # list_blobs(bucket_name)
     return list_blobs(bucket_name)
